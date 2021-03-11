@@ -12,6 +12,11 @@ const HomePage = () => {
   return (
     <>
       <h1 style={{ textAlign: "center", marginTop: "30px" }}> Homepage</h1>
+      <img
+        style={{ width: "80%", margin: "0 auto", display: "block" }}
+        src="https://react-content.netlify.app/images/react-crud-1.png"
+        alt="crud"
+      />
     </>
   );
 };

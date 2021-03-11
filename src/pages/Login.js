@@ -12,33 +12,35 @@ import Form from "react-bootstrap/Form";
 const Login = () => {
   const [submitting, setSubmitting] = useState(false);
   const [loginError, setLoginError] = useState(null);
+  const [success, setSuccess] = useState(false);
   const history = useHistory();
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(loginSchema),
   });
-  const [auth, setAuth] = useContext(AuthContext);
+  const [, setAuth] = useContext(AuthContext);
 
-  if (auth) {
-    history.push("/products");
-  }
   const onSubmit = async (data) => {
     setSubmitting(true);
     setLoginError(null);
 
-    console.log(data);
     try {
       const response = await axios.post(`${BASE_URL}${AUTH_PATH}`, data);
       console.log(response.data);
       setAuth(response.data);
+      setSuccess(true);
     } catch (error) {
       console.log(error);
-      setLoginError(error);
+      setLoginError(error.toString());
+      setSuccess(false);
     } finally {
       setSubmitting(false);
-      history.push("/products");
     }
   };
+
+  if (success) {
+    history.push("/products");
+  }
 
   return (
     <Form
