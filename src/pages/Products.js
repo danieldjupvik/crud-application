@@ -4,6 +4,7 @@ import AuthContext from "../context/AuthContext";
 import { PRODUCTS_PATH } from "../utils/constants";
 import useAxios from "../utils/useAxios";
 import Item from "../components/Item";
+import Button from "react-bootstrap/Button";
 
 const Products = () => {
   const [auth] = useContext(AuthContext);
@@ -42,24 +43,38 @@ const Products = () => {
   }
 
   if (!products) {
-    return <h3>Loading...</h3>;
+    return (
+      <h1 style={{ textAlign: "center", marginTop: "150px" }}>Loading...</h1>
+    );
   }
 
   return (
     <>
-      <h1>Products</h1>
-      {products.map((product) => {
-        return (
-          <div key={product.id}>
-            <Link to={`/edit/${product.id}`}>
-              <Item {...product} />
-            </Link>
-            <button onClick={() => deleteProduct(product.id, product.title)}>
-              Delete
-            </button>
-          </div>
-        );
-      })}
+      <h1 style={{ textAlign: "center", marginTop: "30px" }}>Products</h1>
+      <div style={{ display: "flex" }}>
+        {products.map((product) => {
+          return (
+            <div
+              key={product.id}
+              style={{ width: "fit-content", margin: "30px" }}
+            >
+              <Link
+                to={`/edit/${product.id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <Item {...product} />
+              </Link>
+              <Button
+                style={{ margin: "0 auto", width: "100%", display: "block" }}
+                variant="danger"
+                onClick={() => deleteProduct(product.id, product.title)}
+              >
+                Delete
+              </Button>
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };

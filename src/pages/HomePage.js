@@ -11,7 +11,7 @@ const HomePage = () => {
 
   return (
     <>
-      <h1> Homepage</h1>
+      <h1 style={{ textAlign: "center", marginTop: "30px" }}> Homepage</h1>
     </>
   );
 };

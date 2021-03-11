@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { productSchema } from "../utils/schemas";
 import AuthContext from "../context/AuthContext";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const EditProduct = () => {
   const [product, setProduct] = useState(null);
@@ -60,27 +62,32 @@ const EditProduct = () => {
   }, [id]);
 
   if (!product) {
-    return <h2>Loading...</h2>;
+    return (
+      <h1 style={{ textAlign: "center", marginTop: "150px" }}>Loading...</h1>
+    );
   }
 
   return (
     <>
-      <h1>Edit</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <h1 style={{ textAlign: "center", marginTop: "30px" }}>Edit</h1>
+      <Form
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ maxWidth: "350px", margin: "0 auto", marginTop: "60px" }}
+      >
         {updateError && <p>{updateError}</p>}
         <fieldset disabled={submitting}>
-          <div>
-            <input
+          <Form.Group>
+            <Form.Control
               name="title"
               placeholder="Title"
               ref={register}
               defaultValue={product.title}
             />
             {errors.title && <p>{errors.identifier.message}</p>}
-          </div>
+          </Form.Group>
 
-          <div>
-            <input
+          <Form.Group>
+            <Form.Control
               name="price"
               placeholder="Price"
               defaultValue={product.price}
@@ -88,9 +95,11 @@ const EditProduct = () => {
               type="number"
             />
             {errors.price && <p>{errors.price.message}</p>}
-          </div>
-          <div>
-            <textarea
+          </Form.Group>
+          <Form.Group>
+            <Form.Control
+              as="textarea"
+              rows={3}
               name="description"
               placeholder="Description"
               defaultValue={product.description}
@@ -98,9 +107,9 @@ const EditProduct = () => {
               type="text"
             />
             {errors.description && <p>{errors.description.message}</p>}
-          </div>
-          <div>
-            <input
+          </Form.Group>
+          <Form.Group>
+            <Form.Control
               name="image_url"
               placeholder="Image URL"
               ref={register}
@@ -108,16 +117,19 @@ const EditProduct = () => {
               type="text"
             />
             {errors.image_url && <p>{errors.image_url.message}</p>}
-          </div>
+          </Form.Group>
 
-          <button type="submit">
+          <Button type="submit">
             {submitting ? "Updating ..." : "Update"}
-          </button>
+          </Button>
         </fieldset>
-      </form>
-
+      </Form>
       {success ? <p>Listing of {product.title} was updated</p> : null}
-      <Item {...product} />
+      <div
+        style={{ margin: "0 auto", width: "fit-content", marginTop: "60px" }}
+      >
+        <Item {...product} />
+      </div>
     </>
   );
 };

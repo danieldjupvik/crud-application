@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { productSchema } from "../utils/schemas";
 import AuthContext from "../context/AuthContext";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const AddProduct = () => {
   const [product, setProduct] = useState(null);
@@ -45,70 +47,68 @@ const AddProduct = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const getProduct = async () => {
-  //     try {
-  //       const response = await http.get(`${PRODUCTS_PATH}/${id}`);
-  //       console.log(response);
-  //       setProduct(response.data);
-  //     } catch (e) {
-  //       console.log("error" + e);
-  //     }
-  //   };
-  //   getProduct();
-  // }, [id]);
-
-  // if (!product) {
-  //   return <h2>Loading...</h2>;
-  // }
-
   return (
     <>
-      <h1>Add</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <h1 style={{ textAlign: "center", marginTop: "30px" }}>Add</h1>
+      <Form
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ maxWidth: "350px", margin: "0 auto", marginTop: "60px" }}
+      >
         {postError && <p>{postError}</p>}
         <fieldset disabled={submitting}>
-          <div>
-            <input name="title" placeholder="Title" ref={register} />
+          <Form.Group>
+            <Form.Control name="title" placeholder="Title" ref={register} />
             {errors.title && <p>{errors.identifier.message}</p>}
-          </div>
+          </Form.Group>
 
-          <div>
-            <input
+          <Form.Group>
+            <Form.Control
               name="price"
               placeholder="Price"
               ref={register}
               type="number"
             />
             {errors.price && <p>{errors.price.message}</p>}
-          </div>
-          <div>
-            <textarea
+          </Form.Group>
+          <Form.Group>
+            <Form.Control
+              as="textarea"
+              rows={3}
               name="description"
               placeholder="Description"
               ref={register}
               type="text"
             />
             {errors.description && <p>{errors.description.message}</p>}
-          </div>
-          <div>
-            <input
+          </Form.Group>
+          <Form.Group>
+            <Form.Control
               name="image_url"
               placeholder="Image URL"
               ref={register}
               type="text"
             />
             {errors.image_url && <p>{errors.image_url.message}</p>}
-          </div>
+          </Form.Group>
 
-          <button type="submit">{submitting ? "Adding ..." : "Add"}</button>
+          <Button type="submit">{submitting ? "Adding ..." : "Add"}</Button>
         </fieldset>
-      </form>
+      </Form>
       {success ? (
         <>
           {" "}
-          <p>{product.title} is added!</p>
-          <Item {...product} />{" "}
+          <p style={{ textAlign: "center", fontWeight: "bold" }}>
+            {product.title} is added!
+          </p>
+          <div
+            style={{
+              margin: "0 auto",
+              width: "fit-content",
+              marginTop: "60px",
+            }}
+          >
+            <Item {...product} />
+          </div>
         </>
       ) : null}
     </>
