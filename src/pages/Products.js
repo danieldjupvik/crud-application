@@ -51,7 +51,7 @@ const Products = () => {
   return (
     <>
       <h1 style={{ textAlign: "center", marginTop: "30px" }}>Products</h1>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
         {products.map((product) => {
           return (
             <div

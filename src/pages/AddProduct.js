@@ -58,7 +58,7 @@ const AddProduct = () => {
         <fieldset disabled={submitting}>
           <Form.Group>
             <Form.Control name="title" placeholder="Title" ref={register} />
-            {errors.title && <p>{errors.identifier.message}</p>}
+            {errors.title && <p>{errors.title.message}</p>}
           </Form.Group>
 
           <Form.Group>
